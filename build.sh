@@ -22,11 +22,11 @@ make menuconfig
 echo "[+] Running make defconfig..."
 make defconfig
 
-echo "[+] Syncing kernel config..."
-make kernel_oldconfig
+# echo "[+] Syncing kernel config..."
+# make kernel_oldconfig
 
-echo "[+] Refreshing kernel patches..."
-make target/linux/refresh V=s
+# echo "[+] Refreshing kernel patches..."
+# make target/linux/refresh V=s
 
 echo "[+] Starting parallel build..."
 if ! make -j$(nproc); then
