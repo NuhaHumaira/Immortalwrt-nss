@@ -1,5 +1,5 @@
 src-git sqm_scripts_nss https://github.com/qosmio/sqm-scripts-nss.git
-src-git nss_packages https://github.com/qosmio/nss-packages.git;NSS-12.5-K6.x-wwan
+src-git nss_packages https://github.com/NuhaHumaira/nss-packages.git;NSS-12.5-K6.x-wwan
 src-git custom https://github.com/dotywrt/owrt-packages.git;K66_R1
 src-git packages https://github.com/immortalwrt/packages.git^7cb6be451d8764029743bd9476fc804f791c7ac8
 src-git luci https://github.com/immortalwrt/luci.git^dbf5de06f1f3989fab244cc22a43deaa1e3b77b2
