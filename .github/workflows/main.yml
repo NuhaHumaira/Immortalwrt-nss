@@ -1,0 +1,61 @@
+name: Build OpenWRT
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential flex bison gawk gcc-multilib \
+            git make ncurses-dev libncurses5-dev zlib1g-dev \
+            g++ python3 unzip file wget rsync quilt
+
+      - name: Update and install feeds
+        run: |
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
+
+      - name: Run make defconfig
+        run: make defconfig
+
+      - name: Sync kernel config
+        run: make kernel_oldconfig
+
+      - name: Build firmware with auto-recovery
+        run: |
+          echo "Refreshing kernel patches..."
+          make target/linux/refresh V=s
+
+          echo "Starting parallel build..."
+          make -j$(nproc) || {
+            echo "::warning::Parallel build failed. Trying single-threaded build with verbose output..."
+            make -j1 V=s || {
+              echo "::error::Build failed. Attempting recovery for toolchain/kernel-headers..."
+              make toolchain/kernel-headers/clean
+              make toolchain/kernel-headers/compile V=s || {
+                echo "::error::kernel-headers still failed to compile."
+                exit 1
+              }
+
+              echo "::notice::Retrying full build after toolchain fix..."
+              make -j1 V=s || {
+                echo "::error::Final build still failed after toolchain fix."
+                exit 1
+              }
+            }
+          }
+
+      - name: Upload firmware
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openwrt-firmware
+          path: bin/
