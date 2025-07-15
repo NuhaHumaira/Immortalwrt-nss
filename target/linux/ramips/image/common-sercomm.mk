@@ -184,7 +184,6 @@ define Device/sercomm_cpj
 	append-metadata
   ARTIFACTS := initramfs-factory.img
   DEVICE_PACKAGES := kmod-mt76x2
-  DEFAULT := n
 endef
 
 define Device/sercomm_cxx_dxx

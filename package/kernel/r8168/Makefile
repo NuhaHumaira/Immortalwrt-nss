@@ -21,15 +21,28 @@ define KernelPackage/r8168
   DEPENDS:=@PCI_SUPPORT +kmod-libphy
   FILES:=$(PKG_BUILD_DIR)/src/r8168.ko
   AUTOLOAD:=$(call AutoProbe,r8168,1)
-  PROVIDES:=kmod-r8169 kmod-r8168-rss
+  PROVIDES:=kmod-r8169
+  VARIANT:=regular
 endef
+
+define KernelPackage/r8168-rss
+$(call KernelPackage/r8168)
+  CONFLICTS:=kmod-r8168
+  TITLE+= (RSS)
+  VARIANT:=rss
+endef
+
+ifeq ($(BUILD_VARIANT),rss)
+  PKG_MAKE_FLAGS += \
+    ENABLE_MULTIPLE_TX_QUEUE=y \
+    ENABLE_RSS_SUPPORT=y
+endif
 
 define Build/Compile
 	+$(KERNEL_MAKE) $(PKG_JOBS) \
 		M="$(PKG_BUILD_DIR)/src" \
-		ENABLE_MULTIPLE_TX_QUEUE=y \
-		ENABLE_RSS_SUPPORT=y \
 		modules
 endef
 
 $(eval $(call KernelPackage,r8168))
+$(eval $(call KernelPackage,r8168-rss))

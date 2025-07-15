@@ -13,7 +13,7 @@ KERNEL_PATCHVER:=6.6
 
 include $(INCLUDE_DIR)/target.mk
 
-DEFAULT_PACKAGES += mkf2fs e2fsprogs automount autocore
+DEFAULT_PACKAGES += mkf2fs e2fsprogs
 # blkid used for resolving PARTUUID
 # in sysupgrade. vfat required for
 # mounting ESP partition

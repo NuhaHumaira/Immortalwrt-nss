@@ -55,7 +55,7 @@ define Device/alfa-network_tube-e4g
   DEVICE_VENDOR := ALFA Network
   DEVICE_MODEL := Tube-E4G
   DEVICE_PACKAGES := kmod-usb2 kmod-usb-ohci uboot-envtools uqmi -iwinfo \
-	-kmod-rt2800-soc -wpad-openssl
+	-kmod-rt2800-soc -wpad-basic-mbedtls
   SUPPORTED_DEVICES += tube-e4g
 endef
 TARGET_DEVICES += alfa-network_tube-e4g
@@ -159,16 +159,6 @@ define Device/bolt_bl100
 endef
 TARGET_DEVICES += bolt_bl100
 
-define Device/bolt_bl201
-  SOC := mt7620a
-  IMAGE_SIZE := 15872k
-  DEVICE_VENDOR := Bolt
-  DEVICE_MODEL := BL201
-  DEVICE_PACKAGES := kmod-mt76x2 kmod-usb2 kmod-usb-ohci
-  UIMAGE_MAGIC := 0x26112015
-endef
-TARGET_DEVICES += bolt_bl201
-
 define Device/buffalo_whr-1166d
   SOC := mt7620a
   IMAGE_SIZE := 16064k
@@ -254,7 +244,6 @@ define Device/dlink_dir-806a-b1
   IMAGES += factory.bin
   IMAGE/factory.bin := append-kernel | append-rootfs | pad-rootfs | check-size | \
 	sign-dlink-ru cef285a2e29e40b2baab31277d44298b
-  DEFAULT := n
 endef
 TARGET_DEVICES += dlink_dir-806a-b1
 
@@ -675,7 +664,6 @@ define Device/iodata_wn-ac1167gr
   IMAGE/factory.bin := $$(sysupgrade_bin) | check-size | \
 	elx-header 01040016 8844A2D168B45A2D
   DEVICE_PACKAGES := kmod-mt76x2
-  DEFAULT := n
 endef
 TARGET_DEVICES += iodata_wn-ac1167gr
 
@@ -688,7 +676,6 @@ define Device/iodata_wn-ac733gr3
   IMAGE/factory.bin := $$(sysupgrade_bin) | check-size | \
 	elx-header 01040006 8844A2D168B45A2D
   DEVICE_PACKAGES := kmod-mt76x0e kmod-switch-rtl8367b
-  DEFAULT := n
 endef
 TARGET_DEVICES += iodata_wn-ac733gr3
 
@@ -806,7 +793,6 @@ define Device/linksys_e1700
   DEVICE_VENDOR := Linksys
   DEVICE_MODEL := E1700
   SUPPORTED_DEVICES += e1700
-  DEFAULT := n
 endef
 TARGET_DEVICES += linksys_e1700
 
@@ -855,7 +841,6 @@ define Device/netgear_ex3700
   DEVICE_VENDOR := NETGEAR
   DEVICE_MODEL := EX3700/EX3800
   SUPPORTED_DEVICES += ex3700
-  DEFAULT := n
 endef
 TARGET_DEVICES += netgear_ex3700
 
@@ -868,7 +853,6 @@ define Device/netgear_ex6120
   DEVICE_PACKAGES := kmod-mt76x2
   DEVICE_VENDOR := NETGEAR
   DEVICE_MODEL := EX6120
-  DEFAULT := n
 endef
 TARGET_DEVICES += netgear_ex6120
 
@@ -881,7 +865,6 @@ define Device/netgear_ex6130
   DEVICE_PACKAGES := kmod-mt76x2
   DEVICE_VENDOR := NETGEAR
   DEVICE_MODEL := EX6130
-  DEFAULT := n
 endef
 TARGET_DEVICES += netgear_ex6130
 
@@ -943,7 +926,6 @@ define Device/netgear_wn3100rp-v2
   DEVICE_VENDOR := NETGEAR
   DEVICE_MODEL := WN3100RP
   DEVICE_VARIANT := v2
-  DEFAULT := n
 endef
 TARGET_DEVICES += netgear_wn3100rp-v2
 
@@ -983,7 +965,6 @@ define Device/nexx_wt3020-8m
   DEVICE_VARIANT := 8M
   DEVICE_PACKAGES := kmod-usb2 kmod-usb-ohci
   SUPPORTED_DEVICES += wt3020 wt3020-8M
-  DEFAULT := n
 endef
 TARGET_DEVICES += nexx_wt3020-8m
 
@@ -1195,7 +1176,6 @@ define Device/sitecom_wlr-4100-v1-002
   DEVICE_MODEL := WLR-4100
   DEVICE_VARIANT := v1 002
   DEVICE_PACKAGES := kmod-usb2 kmod-usb-ohci uboot-envtools
-  DEFAULT := n
 endef
 TARGET_DEVICES += sitecom_wlr-4100-v1-002
 
@@ -1220,7 +1200,6 @@ define Device/tplink_archer-c20i
   DEVICE_MODEL := Archer C20i
   DEVICE_PACKAGES := kmod-mt76x0e kmod-usb2 kmod-usb-ohci
   SUPPORTED_DEVICES += c20i
-  DEFAULT := n
 endef
 TARGET_DEVICES += tplink_archer-c20i
 
@@ -1238,7 +1217,6 @@ define Device/tplink_archer-c20-v1
   DEVICE_VARIANT := v1
   DEVICE_PACKAGES := kmod-mt76x0e kmod-usb2 kmod-usb-ohci \
 	kmod-usb-ledtrig-usbport
-  DEFAULT := n
 endef
 TARGET_DEVICES += tplink_archer-c20-v1
 
@@ -1255,7 +1233,6 @@ define Device/tplink_archer-c2-v1
   DEVICE_VARIANT := v1
   DEVICE_PACKAGES := kmod-mt76x0e kmod-usb2 kmod-usb-ohci \
 	kmod-usb-ledtrig-usbport kmod-switch-rtl8367b
-  DEFAULT := n
 endef
 TARGET_DEVICES += tplink_archer-c2-v1
 
@@ -1273,7 +1250,6 @@ define Device/tplink_archer-c5-v4
   DEVICE_VARIANT := v4
   DEVICE_PACKAGES := kmod-usb2 kmod-usb-ohci kmod-usb-ledtrig-usbport \
 	kmod-mt76x2 kmod-switch-rtl8367b
-  DEFAULT := n
 endef
 TARGET_DEVICES += tplink_archer-c5-v4
 
@@ -1291,7 +1267,6 @@ define Device/tplink_archer-c50-v1
   DEVICE_VARIANT := v1
   DEVICE_PACKAGES := kmod-mt76x2 kmod-usb2 kmod-usb-ohci
   SUPPORTED_DEVICES += c50
-  DEFAULT := n
 endef
 TARGET_DEVICES += tplink_archer-c50-v1
 
@@ -1307,7 +1282,6 @@ define Device/tplink_archer-mr200
 	kmod-usb-serial-option adb-enablemodem
   DEVICE_MODEL := Archer MR200
   SUPPORTED_DEVICES += mr200
-  DEFAULT := n
 endef
 TARGET_DEVICES += tplink_archer-mr200
 
@@ -1618,7 +1592,6 @@ define Device/zyxel_keenetic-lite-iii-a
   IMAGES += factory.bin
   IMAGE/factory.bin := $$(sysupgrade_bin) | pad-to 64k | check-size | \
 		zyimage -d 2102018 -v "ZyXEL Keenetic Lite III"
-  DEFAULT := n
 endef
 TARGET_DEVICES += zyxel_keenetic-lite-iii-a
 
@@ -1632,7 +1605,6 @@ define Device/zyxel_keenetic-omni
   IMAGE/factory.bin := $$(sysupgrade_bin) | pad-to 64k | check-size | \
 	zyimage -d 4882 -v "ZyXEL Keenetic Omni"
   SUPPORTED_DEVICES += kn_rc
-  DEFAULT := n
 endef
 TARGET_DEVICES += zyxel_keenetic-omni
 
@@ -1646,7 +1618,6 @@ define Device/zyxel_keenetic-omni-ii
   IMAGE/factory.bin := $$(sysupgrade_bin) | pad-to 64k | check-size | \
 	zyimage -d 2102034 -v "ZyXEL Keenetic Omni II"
   SUPPORTED_DEVICES += kn_rf
-  DEFAULT := n
 endef
 TARGET_DEVICES += zyxel_keenetic-omni-ii
 

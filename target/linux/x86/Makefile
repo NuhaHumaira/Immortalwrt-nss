@@ -8,7 +8,7 @@ ARCH:=i386
 BOARD:=x86
 BOARDNAME:=x86
 FEATURES:=squashfs ext4 vdi vmdk vhdx pcmcia targz fpu boot-part rootfs-part
-SUBTARGETS:=64 generic legacy geode
+SUBTARGETS:=generic legacy geode 64
 
 KERNEL_PATCHVER:=6.6
 
@@ -16,13 +16,10 @@ KERNELNAME:=bzImage
 
 include $(INCLUDE_DIR)/target.mk
 
-DEFAULT_PACKAGES += fdisk mkf2fs partx-utils kmod-button-hotplug kmod-e1000e kmod-i40e \
-		    kmod-igb kmod-igbvf kmod-igc kmod-ixgbe kmod-ixgbevf kmod-pcnet32 \
-		    kmod-tulip kmod-vmxnet3 kmod-r8101 kmod-r8125 kmod-r8126 kmod-r8168 \
-		    kmod-8139cp kmod-8139too kmod-fs-f2fs kmod-usb-hid kmod-usb-net \
-		    kmod-usb-net-asix kmod-usb-net-asix-ax88179 kmod-usb-net-rtl8150 \
-		    kmod-usb-net-rtl8152-vendor grub2-bios-setup i915-firmware-dmc \
-		    automount autocore
+DEFAULT_PACKAGES += \
+	partx-utils mkf2fs \
+	e2fsprogs kmod-button-hotplug \
+	grub2-bios-setup
 
 $(eval $(call BuildTarget))
 

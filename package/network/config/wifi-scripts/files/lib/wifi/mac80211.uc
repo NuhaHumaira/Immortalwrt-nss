@@ -96,15 +96,15 @@ set ${s}.${id}
 set ${s}.band='${band_name}'
 set ${s}.channel='${channel}'
 set ${s}.htmode='${htmode}'
-set ${s}.country='${country || "CN"}'
+set ${s}.country='${country || ''}'
 set ${s}.num_global_macaddr='${num_global_macaddr || ''}'
-set ${s}.disabled='0'
+set ${s}.disabled='${defaults ? 0 : 1}'
 
 set ${si}=wifi-iface
 set ${si}.device='${name}'
 set ${si}.network='lan'
 set ${si}.mode='ap'
-set ${si}.ssid='${defaults?.ssid || "ImmortalWrt"}'
+set ${si}.ssid='${defaults?.ssid || "OpenWrt"}'
 set ${si}.encryption='${defaults?.encryption || "none"}'
 set ${si}.key='${defaults?.key || ""}'
 
