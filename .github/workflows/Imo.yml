@@ -22,9 +22,9 @@ on:
         description: 'Choose base .config seed file'
         required: true
         type: choice
-        default: 'IM10001.seed'
+        default: 'AW10001.seed'
         options:
-          - IM10001.seed
+          - AW10001.seed
 
       upload_release:
         description: 'Upload firmware to GitHub Release?'
