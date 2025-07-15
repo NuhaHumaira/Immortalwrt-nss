@@ -16,7 +16,7 @@ on:
       build_name:
         description: 'Build name (e.g., R1, CUSTOM)'
         required: false
-        default: 'I66-R1'
+        default: '1.0'
 
       seed_config:
         description: 'Choose base .config seed file'
@@ -125,6 +125,7 @@ jobs:
         run: |
           ./scripts/feeds update -a
           ./scripts/feeds install -a
+          rm .config
 
       - name: Prepare and build firmware (full)
         run: |
