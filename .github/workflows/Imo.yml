@@ -25,6 +25,7 @@ on:
         default: 'AW10001.seed'
         options:
           - AW10001.seed
+          - AW10002.seed
 
       upload_release:
         description: 'Upload firmware to GitHub Release?'
