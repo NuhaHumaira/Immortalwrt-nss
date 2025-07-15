@@ -129,7 +129,7 @@ jobs:
       - name: Prepare and build firmware (full)
         run: |
           echo "Using config: ${{ github.event.inputs.seed_config }}"
-          #cp "./immo/${{ github.event.inputs.seed_config }}" .config
+          cp "./seed/${{ github.event.inputs.seed_config }}" .config
           make defconfig
           sed -i '/check_signature/ s/.*/option check_signature 0/' package/system/opkg/files/opkg.conf
           grep -q 'option check_signature 0' package/system/opkg/files/opkg.conf || echo 'option check_signature 0' >> package/system/opkg/files/opkg.conf
